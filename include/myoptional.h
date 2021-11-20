@@ -15,7 +15,6 @@ public:
     // Constructor assigning value
     template <class P, std::enable_if_t<std::is_same<std::remove_const_t<T>, P>::value, bool> = true>
     constexpr myoptional(const P& val)
-        // constexpr myoptional(const T& val)
         : _value(val)
         , _status(Status::OK)
     {
@@ -24,11 +23,9 @@ public:
 
     // Constructor assigning error code
     template <class P, std::enable_if_t<std::is_same<P, Status>::value, bool> = true>
-    constexpr myoptional(const P& val)
+    constexpr myoptional(const P&)
     {
         std::cout << "Status!" << std::endl;
-        // static_assert(PVal == Status::OK, "dupaaaa!");
-        // std::cout << "const " << std::is_const<T>::value << std::endl;
     }
 
     constexpr const T* operator->() const noexcept
@@ -52,7 +49,12 @@ public:
     }
 
 private:
-    T _value;
+    // class in anonymous union will not be initialized.
+    // one member - no active member switching so placement new is not needed.
+    union {
+        T _value;
+    };
+
     Status _status{ Status::INVALID_ARG };
 };
 
