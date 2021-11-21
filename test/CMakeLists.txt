@@ -3,5 +3,5 @@ set(SRC
 )
 
 add_executable(myoptional_test ${SRC})
-target_link_libraries(myoptional_test myoptional)
+target_link_libraries(myoptional_test PRIVATE myoptional Catch2::Catch2WithMain)
 add_test(NAME myoptional_test COMMAND myoptional_test)

@@ -1,47 +1,47 @@
+#include <catch2/catch_test_macros.hpp>
 #include <myoptional.h>
 
-#include <cstdlib>
+struct DefClass {
+    DefClass() = default;
 
-class DefaultClass {
-public:
-    DefaultClass() = delete;
+    int mVal{ 123 };
+};
 
-    DefaultClass(int val)
-        : _abc(val)
+struct NonDefClass {
+    NonDefClass() = delete;
+
+    NonDefClass(int val)
+        : mVal(val)
     {
     }
 
-    int _abc{ 123 };
+    int mVal{ 123 };
 };
 
-myoptional<DefaultClass> func1()
-{
-    return DefaultClass(11);
-}
+// REQ: must be possible to check if error is present (provide nice impl for if usage)
+TEST_CASE("", "[basic]") {}
 
-myoptional<DefaultClass> func2()
-{
-    return Status::ERROR;
-}
+// REQ: creating from Status must indicate error
+TEST_CASE("", "[basic]") {}
 
-int main(int, char**)
-{
-    myoptional<const DefaultClass> op1 = DefaultClass(22);
-    myoptional<DefaultClass> op2 = Status::ERROR;
+// REQ: creating from value must indicate success
+TEST_CASE("", "[basic]") {}
 
-    myoptional<DefaultClass> op3 = func1();
-    myoptional<DefaultClass> op4 = func2();
+// REQ: must have value getter
+TEST_CASE("", "[basic]") {}
 
-    op2 = DefaultClass(11);
+// REQ: must have error getter
+TEST_CASE("", "[basic]") {}
 
-    DefaultClass a = op3;
-    DefaultClass b = static_cast<DefaultClass>(op3);
+// REQ: value type can be default constructible
+TEST_CASE("", "[basic]") {}
 
-    Status s = op3;
+// REQ: value type does not need to be default constructible (most important feature)
+TEST_CASE("", "[all-inclusive]") {}
 
-    if (op3 == Status::OK) {
-    }
+// REQ: constructors shall be compile-time disabled when they do not match
+TEST_CASE("", "[all-inclusive]") {}
 
-    return EXIT_SUCCESS;
-}
+// REQ: require from enum Status to have member OK with value 0
+TEST_CASE("", "[all-inclusive]") {}
 

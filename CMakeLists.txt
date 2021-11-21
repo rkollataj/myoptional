@@ -14,6 +14,8 @@ target_include_directories(myoptional INTERFACE include/)
 
 if(MYOPTIONAL_WITH_TESTS)
     enable_testing()
+    #include_directories(3rdParty/catch2/include/)
 
+    add_subdirectory(3rdParty/catch2)
     add_subdirectory(test)
 endif()
