@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 option(MYOPTIONAL_WITH_TESTS "Build with test" ON)
 
-add_definitions(-Wall -Wextra)
+if(NOT MSVC)
+    add_definitions(-Wall -Wextra)
+endif()
 
 # Hedear-Only library
 add_library(myoptional INTERFACE)
