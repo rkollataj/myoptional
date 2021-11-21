@@ -151,7 +151,7 @@ TEST_CASE("enable_if", "[all-inclusive]")
 }
 
 // REQ: require from enum Status to have member OK with value 0
-TEST_CASE("", "[all-inclusive]")
+TEST_CASE("enum type", "[all-inclusive]")
 {
     using StatusType = typename std::underlying_type_t<Status>;
 
