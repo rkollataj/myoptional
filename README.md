@@ -1,6 +1,6 @@
 [![myoptional](https://github.com/rkollataj/myoptional/actions/workflows/buil.yml/badge.svg)](https://github.com/rkollataj/myoptional/actions/workflows/buil.yml)
 # myoptional
-Class that enables to hold a user defined class or status code.
+myoptional is a header-only library. It implements a class that enables to hold a user defined class or status code.
 
 ## Building and Running
 ### Linux and macOS

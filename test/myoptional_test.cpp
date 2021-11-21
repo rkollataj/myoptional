@@ -100,6 +100,14 @@ TEST_CASE("creating from value (default constructible)", "[basic]")
     df2.mVal = 666;
     myoptional<const DefClass> op4(df2);
     checkStatus(op4, 666);
+
+    auto valueFunc = []() -> myoptional<DefClass> { return DefClass(); };
+    myoptional<DefClass> op5 = valueFunc();
+    checkStatus(op5, 123);
+
+    auto constValueFunc = []() -> myoptional<const DefClass> { return DefClass(); };
+    myoptional<const DefClass> op6 = constValueFunc();
+    checkStatus(op6, 123);
 }
 
 // REQ: value type does not need to be default constructible (most important feature)
@@ -142,6 +150,14 @@ TEST_CASE("creating from value (non-default constructible)", "[all-inclusive]")
     NonDefClass df2(666);
     myoptional<const NonDefClass> op4(df2);
     checkStatus(op4, 666);
+
+    auto valueFunc = []() -> myoptional<NonDefClass> { return NonDefClass(333); };
+    myoptional<NonDefClass> op5 = valueFunc();
+    checkStatus(op5, 333);
+
+    auto constValueFunc = []() -> myoptional<const NonDefClass> { return NonDefClass(444); };
+    myoptional<const NonDefClass> op6 = constValueFunc();
+    checkStatus(op6, 444);
 }
 
 // REQ: constructors shall be compile-time disabled when they do not match
