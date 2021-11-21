@@ -1,0 +1,33 @@
+name: myoptional
+
+on: [push, pull_request]
+
+#env:
+#  MAIN_BRANCH: 'refs/heads/master'
+
+jobs:
+  Linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{github.workspace}}/build
+
+    - name: Configure CMake
+      working-directory: ${{github.workspace}}/build
+      run: cmake ..
+      env:
+        CXX: g++
+        CC: gcc
+
+    - name: Build
+      working-directory: ${{github.workspace}}/build
+      run: make -j3
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: ctest --output-on-failure
