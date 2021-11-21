@@ -11,7 +11,7 @@ public:
     {
     }
 
-    int _abc;
+    int _abc{ 123 };
 };
 
 myoptional<DefaultClass> func1()
@@ -33,6 +33,14 @@ int main(int, char**)
     myoptional<DefaultClass> op4 = func2();
 
     op2 = DefaultClass(11);
+
+    DefaultClass a = op3;
+    DefaultClass b = static_cast<DefaultClass>(op3);
+
+    Status s = op3;
+
+    if (op3 == Status::OK) {
+    }
 
     return EXIT_SUCCESS;
 }
