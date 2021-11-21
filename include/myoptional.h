@@ -71,7 +71,7 @@ public:
     /**
      *   @brief Convenience implict conversion to allow assigning copy of user defined value
      */
-    operator T() noexcept
+    operator T&() noexcept
     {
         return mValue;
     }
