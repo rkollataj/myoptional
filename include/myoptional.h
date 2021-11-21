@@ -58,8 +58,14 @@ public:
      *   @tparam P used to check if user is assigning value or status code at compile-time
      */
     template <class P, std::enable_if_t<std::is_same<P, Status>::value, bool> = true>
-    constexpr myoptional(const P&) noexcept
+    constexpr myoptional(const P status) noexcept
     {
+        // Status::OK indicates that we have user value. It cannot be assigned explicitly
+        if (status == Status::OK) {
+            mStatus = Status::INVALID_ARG;
+        } else {
+            mStatus = status;
+        }
     }
 
     /**
@@ -125,6 +131,8 @@ public:
     {
         return mStatus;
     }
+
+    typedef T type;
 
 private:
     /**
